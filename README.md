@@ -27,9 +27,9 @@ Figure 5 shows the code I used to rebalance the dataset this was needed as it di
 ## Section 2 – Model Selection and Training.
 ### Selecting models
 The two algorithms I have chosen are Random Forest and Xgboost. I chose these algorithms as they all work with classification and supervised problems. Random Forest will create multiple trees and then ensemble them allowing for decreased variance and overfitting but could increase biases. Xgboost is scalable and has high accuracy by using gradient boosting which is where you try and create a strong classifier using weak classifiers by creating multiple trees and each one trying to correct any errors made by the previous ones. Boosting can increase variance which can lead to overfitting. Each algorithm has been optimised using different hyperparameters as shown in figure 6, this was implemented by using a dictionary.<br/>  
- ![alt text](readme-images/image-5.png)
+ ![alt text](readme-images/image-5.png)<br/> 
 **Figure 6.**
- ![alt text](readme-images/image-6.png)
+ ![alt text](readme-images/image-6.png)<br/> 
 **Figure 7.**
 ### Hyperparameter tuning
 For tuning hyperparameters for each of my algorithms I store them in a dictionary then loop through each of them and return the hyperparameters with the best accuracy.
