@@ -6,27 +6,27 @@ Part of introduction to Ai module where I developed a machine learning model tha
 Data set - https://www.kaggle.com/code/annastasy/predicting-students-grades/input
 The dataset I have used is based on student performance and will predict grade class making the prediction classification. The idea is to use the age, gender, ethnicity parent’s education, study habits, parental involvement and extracurricular activities of students to predict their grade class (0 : A, 1 : B, 2 : C, 3 : D, 4 : F), which is the target variable, this can then be used to see which students are potentially underperforming and could be used to enable them to get help to result in higher academic performance.
 ### 1.	Handling any missing values and outliers.
-I started off by using the pandas library to read the CSV file and store it in the variable named data set. I then dropped StudentID as shown in figure 1. StudentID was dropped as it was not relevant to calculating the grade classification. There is an argument to be made that age should be dropped from the dataset as well, but I have kept it as it can represent knowledge, as younger people may not have been taught as much as older people an example of this is in the schooling system.
+I started off by using the pandas library to read the CSV file and store it in the variable named data set. I then dropped StudentID as shown in figure 1. StudentID was dropped as it was not relevant to calculating the grade classification. There is an argument to be made that age should be dropped from the dataset as well, but I have kept it as it can represent knowledge, as younger people may not have been taught as much as older people an example of this is in the schooling system.<br/> 
  ![alt text](readme-images/image.png)<br/>
 **Figure 1.**
-I used the .fillna method from the pandas library on each column that hasn’t been dropped to fill in any gaps in the data set as shown below in figure 2. I used a mixture of mode and median depending on the context of the column. Age, StudyTimeWeekly, and Absences were all filled in using median as it provides a better representation of the typical values in the data set and the rest used the mode as the picking the most common item fitted better. This step is important as some machine learning models such as linear regression and decision trees need the data set to be complete and gaps can cause errors, also gaps in the data set can cause biases in the overall result.
+I used the .fillna method from the pandas library on each column that hasn’t been dropped to fill in any gaps in the data set as shown below in figure 2. I used a mixture of mode and median depending on the context of the column. Age, StudyTimeWeekly, and Absences were all filled in using median as it provides a better representation of the typical values in the data set and the rest used the mode as the picking the most common item fitted better. This step is important as some machine learning models such as linear regression and decision trees need the data set to be complete and gaps can cause errors, also gaps in the data set can cause biases in the overall result.<br/> 
  ![alt text](readme-images/image-1.png)<br/>
 **Figure 2.**
 ### 2.	Encode categorical variables.
-The dataset didn’t have any categorical variables in it as they had already been encoded previously. I did however, code an example of what would be required if the dataset had categorical variables which is shown below in Figure 3. This is important as most machine learning algorithms work with numbers and allows a wider range of algorithms to be applied to it.
+The dataset didn’t have any categorical variables in it as they had already been encoded previously. I did however, code an example of what would be required if the dataset had categorical variables which is shown below in Figure 3. This is important as most machine learning algorithms work with numbers and allows a wider range of algorithms to be applied to it.<br/> 
  ![alt text](readme-images/image-2.png)<br/>
 **Figure 3.**
 ### 3.	Splitting the data into training and testing sets.
-The data was split 70% to train and 30% to test, this is important as more data you give to train, the parameter estimates will have less variance. Since my data set is large it makes sense to give a larger split towards training to allow the model to learn more effectively. Figure 4 below shows how I implemented this using the pandas library to create two variables of the dataset ‘X’ that contained everything but the target variable and ‘Y’ that only contained the target variable, I then used the ‘train_test_split’ function from scikit-learn and passed the two variables and the test percentage size, this was then stored in variables as shown in the figure.
+The data was split 70% to train and 30% to test, this is important as more data you give to train, the parameter estimates will have less variance. Since my data set is large it makes sense to give a larger split towards training to allow the model to learn more effectively. Figure 4 below shows how I implemented this using the pandas library to create two variables of the dataset ‘X’ that contained everything but the target variable and ‘Y’ that only contained the target variable, I then used the ‘train_test_split’ function from scikit-learn and passed the two variables and the test percentage size, this was then stored in variables as shown in the figure.<br/> 
  ![alt text](readme-images/image-3.png)<br/>
 **Figure 4.**
 
-Figure 5 shows the code I used to rebalance the dataset this was needed as it didn’t contain enough minority class data (low performing students) which in turn could have resulted in biases towards the majority classes (high performing students). Rebalancing could also increase the accuracy in predictions towards the minority classes. I implemented this using over sampling which is where you increase the number of data entries that belong to minority class, I used SMOTE which is Synthetic Minority Oversampling Technique from a library called imblearn to rebalance my dataset.
+Figure 5 shows the code I used to rebalance the dataset this was needed as it didn’t contain enough minority class data (low performing students) which in turn could have resulted in biases towards the majority classes (high performing students). Rebalancing could also increase the accuracy in predictions towards the minority classes. I implemented this using over sampling which is where you increase the number of data entries that belong to minority class, I used SMOTE which is Synthetic Minority Oversampling Technique from a library called imblearn to rebalance my dataset.<br/> 
  ![alt text](readme-images/image-4.png)<br/>
 **Figure 5.**
 ## Section 2 – Model Selection and Training.
 ### Selecting models
-The two algorithms I have chosen are Random Forest and Xgboost. I chose these algorithms as they all work with classification and supervised problems. Random Forest will create multiple trees and then ensemble them allowing for decreased variance and overfitting but could increase biases. Xgboost is scalable and has high accuracy by using gradient boosting which is where you try and create a strong classifier using weak classifiers by creating multiple trees and each one trying to correct any errors made by the previous ones. Boosting can increase variance which can lead to overfitting. Each algorithm has been optimised using different hyperparameters as shown in figure 6, this was implemented by using a dictionary. 
+The two algorithms I have chosen are Random Forest and Xgboost. I chose these algorithms as they all work with classification and supervised problems. Random Forest will create multiple trees and then ensemble them allowing for decreased variance and overfitting but could increase biases. Xgboost is scalable and has high accuracy by using gradient boosting which is where you try and create a strong classifier using weak classifiers by creating multiple trees and each one trying to correct any errors made by the previous ones. Boosting can increase variance which can lead to overfitting. Each algorithm has been optimised using different hyperparameters as shown in figure 6, this was implemented by using a dictionary.<br/>  
  ![alt text](readme-images/image-5.png)
 **Figure 6.**
  ![alt text](readme-images/image-6.png)
@@ -52,22 +52,22 @@ This is the same as in Random Forest. In figure 6 I have chosen [3, 5, 7] as the
 ##### Proportion of data for each tree
 This determines the amount of training data that is sampled to train each tree. A large number means most of the data will be used to train each tree which can cause over fitting and smaller values can help in reducing over fitting and could increase generalisation. In figure 6 I have chosen [0.8, 1] as data per tree.
 ### Training
-I use GridSearchCV to train the data set and tune the hyper parameters using the parameters given in figure 6. I also use 5-fold cross validation as shown in figure 7, this allows me to be more confident in the results being consistent and not a fluke by evaluating it multiple times. I have also used ensemble learning to predict grade class using all the algorithms as shown in figure 8 this uses the boosting from XgBoost and the bagging from Random Forest. Ensemble learning should allow the predictions to be more accurate.
+I use GridSearchCV to train the data set and tune the hyper parameters using the parameters given in figure 6. I also use 5-fold cross validation as shown in figure 7, this allows me to be more confident in the results being consistent and not a fluke by evaluating it multiple times. I have also used ensemble learning to predict grade class using all the algorithms as shown in figure 8 this uses the boosting from XgBoost and the bagging from Random Forest. Ensemble learning should allow the predictions to be more accurate.<br/> 
  ![alt text](readme-images/image-7.png) <br/>
 **Figure 8.**
 ## Section 3 – Prediction and Evaluation.
 ### Prediction
-Figure 9 shows the results list where I stored the predictions as well as the best hyperparameters and their best cross validation score. The predictions were performed within this list and stored there this allowed them all to be done in one for and to be accessed at any time, making the code easier to read.
+Figure 9 shows the results list where I stored the predictions as well as the best hyperparameters and their best cross validation score. The predictions were performed within this list and stored there this allowed them all to be done in one for and to be accessed at any time, making the code easier to read.<br/> 
  ![alt text](readme-images/image-8.png) <br/>
 **Figure 9.**
 ### Performance metrics
-Figure 10 shows the code I used to create the performance metrics. This uses the classification_report method from the Scikit library to calculate the precision, recall, F1-score. The F1-score is calculated 2 x ((precision x recall) / (precision + recall)). Precision is calculated True positives / (True positives + False positives). Recall is calculated True positives / (True positives + False negatives).
+Figure 10 shows the code I used to create the performance metrics. This uses the classification_report method from the Scikit library to calculate the precision, recall, F1-score. The F1-score is calculated 2 x ((precision x recall) / (precision + recall)). Precision is calculated True positives / (True positives + False positives). Recall is calculated True positives / (True positives + False negatives).<br/> 
  ![alt text](readme-images/image-9.png) <br/>
-**Figure 10.**
+**Figure 10.** <br/> 
  ![alt text](readme-images/image-10.png) <br/>
-**Figure 11.**
+**Figure 11.** <br/> 
  ![alt text](readme-images/image-11.png) <br/>
-**Figure 12.**
+**Figure 12.** <br/> 
  ![alt text](readme-images/image-12.png) <br/>
 **Figure 13.**
 ### Evaluation
